@@ -74,14 +74,23 @@ def preprocess_dataset(input_file, output_file):
     df.to_csv(output_file, index=False)
     return df
 
-if __name__ == "__main__":
-    # Download NLTK data once
+def main():
+    """CLI entry point for preprocessing."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Preprocess job posting data")
+    parser.add_argument("input_csv", help="Path to raw job postings CSV")
+    parser.add_argument("output_csv", help="Where to save the processed CSV")
+    args = parser.parse_args()
+
     nltk.download('punkt')
     nltk.download('stopwords')
     nltk.download('wordnet')
     nltk.download('omw-1.4')
 
-    input_path  = "/Users/priyansh/Desktop/fraud_job_detection/fake_job_postings.csv"
-    output_path = "/Users/priyansh/Desktop/fraud_job_detection/preprocessed_job_postings.csv"
-    preprocess_dataset(input_path, output_path)
+    preprocess_dataset(args.input_csv, args.output_csv)
     print("Preprocessing complete!")
+
+
+if __name__ == "__main__":
+    main()

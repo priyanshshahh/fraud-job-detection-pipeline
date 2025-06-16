@@ -20,13 +20,20 @@ from modeltraining import load_features, prepare_features, train_model, evaluate
 from modelevaluation import evaluate_all
 
 def main():
-    # ─── 0) Paths ────────────────────────────────────────────────────────────
-    root          = os.path.dirname(os.path.abspath(__file__))
-    raw_csv       = os.path.join(root,       "fake_job_postings.csv")
-    preproc_csv   = os.path.join(root,       "preprocessed_job_postings.csv")
-    features_dir  = os.path.join(root, "data", "features")
-    models_dir    = os.path.join(root,       "models")
-    evaluation_dir= os.path.join(root, "evaluation")
+    """Run the entire pipeline via command line."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Execute full fraud detection pipeline")
+    parser.add_argument("raw_csv", help="Path to the raw job postings CSV")
+    parser.add_argument("output_dir", help="Directory to store all artifacts")
+    args = parser.parse_args()
+
+    raw_csv = os.path.abspath(args.raw_csv)
+    output_root = os.path.abspath(args.output_dir)
+    preproc_csv   = os.path.join(output_root, "preprocessed_job_postings.csv")
+    features_dir  = os.path.join(output_root, "data", "features")
+    models_dir    = os.path.join(output_root, "models")
+    evaluation_dir= os.path.join(output_root, "evaluation")
 
     # Ensure output folders exist
     os.makedirs(features_dir,    exist_ok=True)
@@ -66,7 +73,13 @@ def main():
     print("\n=== STEP 4: Detailed Evaluation & Reporting ===")
     evaluate_all(features_dir, models_dir, evaluation_dir)
 
-    print(f"\n🎉 Pipeline complete! Check outputs under:\n  • Preprocessed CSV: {preproc_csv}\n  • Features:        {features_dir}\n  • Models:          {models_dir}\n  • Evaluation:      {evaluation_dir}")
+    print(
+        f"\n🎉 Pipeline complete! Check outputs under:\n"
+        f"  • Preprocessed CSV: {preproc_csv}\n"
+        f"  • Features:        {features_dir}\n"
+        f"  • Models:          {models_dir}\n"
+        f"  • Evaluation:      {evaluation_dir}"
+    )
 
 if __name__ == "__main__":
     main()

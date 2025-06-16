@@ -225,8 +225,18 @@ def evaluate_all(features_dir, models_dir, output_dir):
 
     print("Evaluation complete. Outputs in:", output_dir)
 
+def main():
+    """CLI entry point for model evaluation."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Evaluate trained model")
+    parser.add_argument("features_dir", help="Directory containing feature files")
+    parser.add_argument("models_dir", help="Directory containing trained model")
+    parser.add_argument("output_dir", help="Directory to store evaluation outputs")
+    args = parser.parse_args()
+
+    evaluate_all(args.features_dir, args.models_dir, args.output_dir)
+
+
 if __name__ == "__main__":
-    FEAT_DIR  = "/Users/priyansh/Desktop/fraud_job_detection/data/features"
-    MODELS_DIR= "/Users/priyansh/Desktop/fraud_job_detection/models"
-    OUT_DIR   = "/Users/priyansh/Desktop/fraud_job_detection/evaluation"
-    evaluate_all(FEAT_DIR, MODELS_DIR, OUT_DIR)
+    main()

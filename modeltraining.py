@@ -152,11 +152,16 @@ def save_artifacts(model, metrics, cv_scores, output_dir):
     print("All artifacts saved to:", output_dir)
 
 def main():
-    features_dir = "/Users/priyansh/Desktop/fraud_job_detection/data/features"
-    output_dir   = "/Users/priyansh/Desktop/fraud_job_detection/models"
+    """CLI entry point for model training."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Train fraud detection model")
+    parser.add_argument("features_dir", help="Directory containing feature files")
+    parser.add_argument("output_dir", help="Directory to store trained model")
+    args = parser.parse_args()
 
     # 1) Load
-    tfidf, sentiment, metadata, target_df = load_features(features_dir)
+    tfidf, sentiment, metadata, target_df = load_features(args.features_dir)
     y = target_df['fraudulent'].values
 
     # 2) Prepare features
@@ -172,7 +177,7 @@ def main():
     cv_scores = cross_validate(model, X, y)
 
     # 6) Save results
-    save_artifacts(model, metrics, cv_scores, output_dir)
+    save_artifacts(model, metrics, cv_scores, args.output_dir)
 
 if __name__ == "__main__":
     main()

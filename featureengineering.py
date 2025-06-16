@@ -118,11 +118,20 @@ def feature_extraction(input_file, output_dir):
 
     return tfidf_mat, sentiment_df, metadata_df, target
 
-if __name__ == "__main__":
-    # Download VADER data once
+def main():
+    """CLI entry point for feature extraction."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Extract features from preprocessed data")
+    parser.add_argument("input_csv", help="Preprocessed CSV file")
+    parser.add_argument("output_dir", help="Directory to store feature files")
+    args = parser.parse_args()
+
     nltk.download('vader_lexicon')
 
-    inp  = "/Users/priyansh/Desktop/fraud_job_detection/preprocessed_job_postings.csv"
-    outd = "/Users/priyansh/Desktop/fraud_job_detection/data/features"
-    feature_extraction(inp, outd)
+    feature_extraction(args.input_csv, args.output_dir)
     print("Feature extraction complete!")
+
+
+if __name__ == "__main__":
+    main()
