@@ -40,3 +40,13 @@ python dashboard.py
 ```
 
 Ensure the `models` directory and `data/features` folder referenced above exist inside your chosen output directory.
+
+## Gradio Demo
+
+After training your model, you can launch a lightweight Gradio interface for quick demonstrations:
+
+```bash
+python gradio_demo.py
+```
+
+This interface accepts the same job posting fields as the dashboard and returns a prediction label and fraud probability.
