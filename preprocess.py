@@ -81,7 +81,8 @@ if __name__ == "__main__":
     nltk.download('wordnet')
     nltk.download('omw-1.4')
 
-    input_path  = "/Users/priyansh/Desktop/fraud_job_detection/fake_job_postings.csv"
-    output_path = "/Users/priyansh/Desktop/fraud_job_detection/preprocessed_job_postings.csv"
+    import os
+    input_path  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fake_job_postings.csv")
+    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preprocessed_job_postings.csv")
     preprocess_dataset(input_path, output_path)
     print("Preprocessing complete!")

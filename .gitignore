@@ -1,2 +1,11 @@
 node_modules/
 .env
+__pycache__/
+*.pyc
+*.csv
+!create_dummy_data.py
+data/
+models/
+evaluation/
+preprocessed_job_postings.csv
+fake_job_postings.csv

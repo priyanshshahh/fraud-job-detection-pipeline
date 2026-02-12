@@ -20,7 +20,7 @@ def combine_text_columns(df, text_columns):
     # Replace missing values with empty strings
     for col in text_columns:
         if col in df.columns:
-            df[col] = df[col].fillna('')
+            df[col] = df[col].fillna('').astype(str)
 
     # Join the columns with spaces
     return df[text_columns].apply(lambda row: ' '.join(row), axis=1)
@@ -49,7 +49,7 @@ def extract_sentiment_features(df, text_columns):
 
     for col in text_columns:
         if col in df.columns:
-            scores = df[col].fillna('').apply(lambda txt: sid.polarity_scores(txt))
+            scores = df[col].fillna('').astype(str).apply(lambda txt: sid.polarity_scores(txt))
             out[f'{col}_neg']      = scores.apply(lambda s: s['neg'])
             out[f'{col}_neu']      = scores.apply(lambda s: s['neu'])
             out[f'{col}_pos']      = scores.apply(lambda s: s['pos'])
@@ -122,7 +122,8 @@ if __name__ == "__main__":
     # Download VADER data once
     nltk.download('vader_lexicon')
 
-    inp  = "/Users/priyansh/Desktop/fraud_job_detection/preprocessed_job_postings.csv"
-    outd = "/Users/priyansh/Desktop/fraud_job_detection/data/features"
+    import os
+    inp  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preprocessed_job_postings.csv")
+    outd = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "features")
     feature_extraction(inp, outd)
     print("Feature extraction complete!")

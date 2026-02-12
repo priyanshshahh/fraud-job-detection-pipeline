@@ -226,7 +226,8 @@ def evaluate_all(features_dir, models_dir, output_dir):
     print("Evaluation complete. Outputs in:", output_dir)
 
 if __name__ == "__main__":
-    FEAT_DIR  = "/Users/priyansh/Desktop/fraud_job_detection/data/features"
-    MODELS_DIR= "/Users/priyansh/Desktop/fraud_job_detection/models"
-    OUT_DIR   = "/Users/priyansh/Desktop/fraud_job_detection/evaluation"
+    import os
+    FEAT_DIR  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "features")
+    MODELS_DIR= os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
+    OUT_DIR   = os.path.join(os.path.dirname(os.path.abspath(__file__)), "evaluation")
     evaluate_all(FEAT_DIR, MODELS_DIR, OUT_DIR)
