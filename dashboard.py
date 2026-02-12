@@ -25,7 +25,8 @@ ROOT_DIR         = os.path.dirname(os.path.abspath(__file__))
 FEATURES_DIR     = os.path.join(ROOT_DIR, 'data', 'features')
 MODELS_DIR       = os.path.join(ROOT_DIR, 'models')
 METADATA_CSV     = os.path.join(FEATURES_DIR, 'metadata_features.csv')
-ASSETS_DIR       = os.path.join(ROOT_DIR, 'assets')  # Evaluation plots here
+# ASSETS_DIR points to evaluation because that's where we configured Dash to look
+ASSETS_DIR       = os.path.join(ROOT_DIR, 'evaluation')
 
 # Paths to artifacts
 tfidf_path = os.path.join(FEATURES_DIR, 'tfidf_vectorizer.joblib')
@@ -47,7 +48,8 @@ metadata_cols     = pd.get_dummies(metadata_template, drop_first=True).columns.t
 
 # Initialize Dash app
 external_css = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = Dash(__name__, external_stylesheets=external_css)
+# We serve plots from the 'evaluation' folder, treating it as the assets folder
+app = Dash(__name__, external_stylesheets=external_css, assets_folder='evaluation')
 app.title = "Fraudulent Job Detector"
 
 # Layout

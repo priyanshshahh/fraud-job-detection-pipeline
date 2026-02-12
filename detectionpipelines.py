@@ -5,6 +5,15 @@ Runs preprocessing, feature extraction, model training, and evaluation.
 """
 
 import os
+import nltk
+
+# Download NLTK data
+nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+nltk.download('vader_lexicon')
 
 # Step 1: Text preprocessing
 from preprocess import preprocess_dataset

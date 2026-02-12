@@ -152,8 +152,9 @@ def save_artifacts(model, metrics, cv_scores, output_dir):
     print("All artifacts saved to:", output_dir)
 
 def main():
-    features_dir = "/Users/priyansh/Desktop/fraud_job_detection/data/features"
-    output_dir   = "/Users/priyansh/Desktop/fraud_job_detection/models"
+    import os
+    features_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "features")
+    output_dir   = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
 
     # 1) Load
     tfidf, sentiment, metadata, target_df = load_features(features_dir)
